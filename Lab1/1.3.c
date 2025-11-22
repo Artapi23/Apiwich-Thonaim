@@ -1,26 +1,28 @@
 #include <stdio.h>
 int main(){
-    int num1, num2, operationCode, result;
-    scanf("%d %d %d", &num1, &num2, &operationCode);
+    int num1, num2, operationCode;
+    int result;
+    scanf("%d %d %d", &num1, &num2, &operationCode\n);
     switch(operationCode){
-        case1:
+        case 1:
             result = num1 + num2;
             printf("%d",result);
             break;
-        case2:
+        case 2:
             result = num1 - num2;
             printf("%d",result);
             break;
-        case3:
+        case 3:
             result = num1 * num2;
             printf("%d",result);
             break;
-        case4:
+        case 4:
             if(num2 !=0)
             printf("%d", num1 / num2);
             else
             printf("Can't Divided By ZERO");
             break;
+
             default:
             printf("Invalid Operation");
     }
