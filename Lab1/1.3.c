@@ -1,8 +1,9 @@
 #include <stdio.h>
 int main(){
     int num1, num2, operationCode,result;
-    scanf("%d %d %d", &num1, &num2, &operationCode);
-    printf("Enter number 1 \n");
+    if (scanf("%d", &num1 )!= 1);
+    if (scanf("%d", &num2 )!= 1);
+    if (scanf("%d", &operationCode )!= 1);
     switch(operationCode){
         case 1:
             result = num1 + num2;
