@@ -1,11 +1,16 @@
 #include <stdio.h>
-#define max_size 100
-void GetSet(int[],int *);
+
+int GetSet(int **data);
+
 int main(){
-    int *data;
-    int num;
-    Getset(data, &num);
-    if(num > 0){
-        printf(":", num);
-    }
+    int data_value = 20;
+    int *data = &data_value,num ;
+    num = GetSet(&data);
+    printf("%d",num);
+
+    return 0;
+}
+
+int GetSet(int **data){
+    return (**data * 2);
 }
