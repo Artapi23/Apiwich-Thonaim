@@ -13,4 +13,4 @@ int main() {
         printf("N must be a positive integer.\n");
     }
     return 0;
-}
+}กหกหฟก
