@@ -22,8 +22,8 @@ int main(){
         }
     }
     printf("Count fizzbuzz (by 15): %d\n", countfizzbuzz);
-    printf("Count fizz (by 3 only)", countfizz);
-    printf("Count buzz (by 5 only", countbuzz);
+    printf("Count fizz (by 3 only): %d\n", countfizz);
+    printf("Count buzz (by 5 only): %d\n", countbuzz);
     printf("Count other: %d\n", countother);
 
     return 0;
