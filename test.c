@@ -1,66 +1,61 @@
 #include <stdio.h>
-#include <string.h>
 
-struct student{
-    char name[50];
-    int studentID;
-    float score;
+struct order
+{
+    int itemID;
+    float unitprice;
+    int quantity;
 };
 
-void clear_input_buffer() {
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF);
-}
-
 int main() {
-    int N, i;
-    float total = 0.0;
-    float avg = 0.0;
+    int i, N;
+    // grandtotal จะเก็บผลรวมสุทธิสุดท้ายหลังหักส่วนลดของทุกรายการ
+    float grandtotal = 0.0; 
+    float itemtotal = 0.0;
+    const float SHIPPING_FEE = 50.0; // ค่าจัดส่งคงที่ 50.0 บาท
+    const float DISCOUNT_RATE = 0.10; // อัตราส่วนลด 10%
+    float Discountamount = 0.0;
     
-    printf("กรุณาป้อนจำนวนนักศึกษา (N): ");
+    printf("Number of Shopping Orders (N): ");
     if (scanf("%d", &N) != 1 || N <= 0) {
-        printf("จำนวนนักศึกษาไม่ถูกต้อง\n");
+        printf("จำนวนรายการไม่ถูกต้อง\n");
         return 1;
     }
+    
+    struct order orders[N];
 
-    struct student students[N];
-
-    for (i = 0; i < N; i++) {
-        printf("\n--- ข้อมูลนักศึกษาคนที่ %d ---\n", i + 1);
+    // --- 1. ลูปเพื่อวนรับค่า คำนวณ และสะสม Grand Total ---
+    for (i = 0; i < N; i++){
         
-        printf("รหัส (ID) และ คะแนน (Score): ");
-        if (scanf("%d %f", &students[i].studentID, &students[i].score) != 2) {
-             printf("รับค่า ID/Score ผิดพลาด\n");
-             return 1;
-        }
-        
-        total += students[i].score;
-        
-        clear_input_buffer(); 
-
-        printf("ชื่อนักศึกษา (Name): ");
-        if (fgets(students[i].name, sizeof(students[i].name), stdin) == NULL) {
-            printf("รับค่าชื่อผิดพลาด\n");
+        printf("\nรายการที่ %d (ID Price Quantity): ", i + 1);
+        if (scanf("%d %f %d", &orders[i].itemID, &orders[i].unitprice, &orders[i].quantity) != 3) {
+            printf("รับข้อมูลรายการที่ %d ผิดพลาด\n", i + 1);
             return 1;
         }
-
-        size_t len = strlen(students[i].name);
-        if (len > 0 && students[i].name[len - 1] == '\n') {
-            students[i].name[len - 1] = '\0';
+        
+        // 4. คำนวณราคารายการก่อนส่วนลด: itemTotal = (unitPrice * quantity) + SHIPPING_FEE
+        itemtotal = (orders[i].unitprice * orders[i].quantity) + SHIPPING_FEE;
+        
+        // กำหนดส่วนลดเป็น 0 ก่อนเสมอ
+        Discountamount = 0.0; 
+        
+        // เงื่อนไขส่วนลด: ถ้า itemTotal >= 500.00 บาท ให้ส่วนลด 10%
+        if (itemtotal >= 500.00) {
+            Discountamount = itemtotal * DISCOUNT_RATE;
+        } else {
+            // ถ้า itemTotal < 500.00 บาท ไม่มีส่วนลด
+            printf("No Discount!\n");
         }
+        
+        // 5. สะสมราคารวมสุทธิ (Grand Total) หลังหักส่วนลด
+        // Grandtotal += (itemTotal - Discountamount)
+        grandtotal += (itemtotal - Discountamount);
     }
     
-    if (N > 0) {
-        avg = total / N; 
-        
-        printf("\n==================================\n");
-        printf("ผลรวมคะแนนทั้งหมด: %.2f\n", total);
-        printf("จำนวนนักศึกษา: %d\n", N);
-        printf("คะแนนเฉลี่ย (Average score): %.2f\n", avg);
-        printf("==================================\n");
-    } else {
-        printf("\nไม่มีข้อมูลนักศึกษาให้คำนวณ\n");
-    }
-
+    // --- 6. แสดงผลราคารวมสุทธิ (Grand Total) เพียงครั้งเดียว ---
+    printf("\n=======================================\n");
+    printf("Grand total (ราคารวมสุทธิ): %.2f\n", grandtotal);
+    printf("=======================================\n");
+    
     return 0;
 }
