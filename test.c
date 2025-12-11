@@ -1,22 +1,39 @@
-#include<stdio.h>
-#include<string.h>
+#include <stdio.h>
 
-void explode(char str1[],char splitter[]);
+void printStudent(struct Student s);
+
+struct Student{
+    char name[50];
+    int StudentId;
+    float score;
+};
 
 int main(){
-    char text[] = "I/Love/you";
-    char *splitter = "/";
-    explode(text,splitter);
+    int N,i;
+
+if(scanf("%d", &N) != 1){
+    return 1;
+}
+
+struct Student students[N];
+
+for (i = 0; i < N; i++){
+   
+    if(scanf("%d %f %s", &students[i].StudentId, &students[i].score ,&students[i].name) != 3){
+        return 1;
+    }
+    
+}
+for ( i = 0; i < N; i++)
+{   
+    printStudent(students[i]);
+}
+
     return 0;
 }
-void explode(char str1[],char splitter[]){
-  int i = 0, count = 0;
-  char *str2 ;
-  str2 = strtok(str1,splitter);
-   while (str2 != NULL){
-    printf("str2[%d] = %s\n",i,str2);
-    str2 = strtok(NULL,splitter);
-    i++,count++;
-   }
- printf("\n\n Count = %d\n",count);
+
+void printStudent(struct Student s){
+    printf("ID: %d ", s.StudentId);
+    printf("Name: %s ", s.name);
+    printf("Score: %.2f\n", s.score);
 }
