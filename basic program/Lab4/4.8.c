@@ -27,4 +27,22 @@ int main(){
     }
     printf("\n");
     printf("---FREQUENCY TABLE---\n");
+    printf("Number | Frequency\n");
+    printf("------|------\n");
+    for (i = 0; i < N; i++) {
+        if (status[i] == 10) {
+            count = 1;
+            for (j = i + 1; j < N; j++) {
+                if (data[i] == data[j]) {
+                    count++;
+                    status[j] = 0; 
+                }
+            }
+            status[i] = count; 
+        }
+        if (status[i] != 0) {
+            printf("  %4d |    %4d\n", data[i], status[i]);
+        }
+    }
+
 }
