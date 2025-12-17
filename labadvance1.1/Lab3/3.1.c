@@ -15,7 +15,7 @@ int main(){
     agirl.gpa = 3.00 ;
     upgrade(&aboy) ;
     upgrade(&agirl) ;
-    printf("GPA for aboy : %.2f\n",aboy.gpa);
+    printf("GPA for aboy : %.2f",aboy.gpa);
     printf("GPA for agirl: %.2f",agirl.gpa);
     return 0 ;
 }
