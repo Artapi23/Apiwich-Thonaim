@@ -5,25 +5,24 @@ struct student {
     char sex ;
     float gpa ;
 };
-void upgrade(struct student *child);
+typedef struct  student stds ;
+void upgrade( struct student *child);
 int main(){
-    struct student aboy ;
-    struct student agirl ;
-    aboy.sex = 'M';
-    aboy.gpa = 3.00 ;
+    stds aboy ;
+    stds agirl ;
+    aboy.sex = 'M' ;
     agirl.sex = 'F' ;
+    aboy.gpa = 3.00 ;
     agirl.gpa = 3.00 ;
-    upgrade(&aboy) ;
-    upgrade(&agirl) ;
-    printf("GPA for aboy : %.2f\n",aboy.gpa);
-    printf("GPA for agirl: %.2f",agirl.gpa);
-    return 0 ;
+    upgrade(&aboy);
+    upgrade(&agirl);
+    printf("Boys GPA : %.2f\n",aboy.gpa);
+    printf("Girls GPA : %.2f",agirl.gpa);
 }
-void upgrade(struct student *child){
+void upgrade( struct student *child){
     if((*child).sex == 'M'){
         (*child).gpa += (*child).gpa * 0.10 ; 
     }else if((*child).sex == 'F'){
         (*child).gpa += (*child).gpa * 0.20 ;
     }
-}
-
+} 
