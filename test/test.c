@@ -1,35 +1,38 @@
 #include <stdio.h>
 
 struct student {
-    char name[20];
+    char name[50];
     int age;
-    char sex;
     float gpa;
 };
 
-// แก้ไขโปรโตไทป์ให้รับพอยเตอร์
-void upgrade(struct student *child);
+// Function prototype
+void GetStudent();
 
 int main() {
-    struct student aboy;
-    
-    // กำหนดค่าเริ่มต้นตามโจทย์
-    aboy.sex = 'M';
-    aboy.gpa = 3.00;
-
-    // ส่งที่อยู่ของตัวแปร (&aboy) เข้าไปในฟังก์ชัน
-    upgrade(&aboy);
-
-    // แสดงผลลัพธ์หลังเรียกใช้ฟังก์ชัน (ควรได้ 3.30)
-    printf("Result GPA: %.2f\n", aboy.gpa);
-
+    GetStudent(); // Call the function to begin data entry
     return 0;
 }
 
-void upgrade(struct student *child) {
-    if (child->sex == 'M') {
-        child->gpa += (child->gpa * 0.10); // เพิ่ม 10%
-    } else if (child->sex == 'F') {
-        child->gpa += (child->gpa * 0.20); // เพิ่ม 20%
+void GetStudent() {
+    int numClassrooms;
+    printf("Enter the number of classrooms: ");
+    scanf("%d", &numClassrooms);
+
+    // Array to store data for classrooms (each with 10 students)
+    struct student school[numClassrooms][10];
+
+    // Nested loops: Outer loop for classrooms, inner loop for 10 students each
+    for (int i = 0; i < numClassrooms; i++) {
+        printf("\n--- Classroom %d ---\n", i + 1);
+        for (int j = 0; j < 10; j++) {
+            printf("Student %d Name: ", j + 1);
+            scanf("%s", school[i][j].name);
+            printf("Student %d Age: ", j + 1);
+            scanf("%d", &school[i][j].age);
+            printf("Student %d GPA: ", j + 1);
+            scanf("%f", &school[i][j].gpa);
+        }
     }
+    printf("\nData entry complete for %d classrooms.\n", numClassrooms);
 }
