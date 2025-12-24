@@ -31,7 +31,7 @@ int main(){
 void get_monthly_data(int array[], int size,const char *type){
     printf("Enter %d Months of %s values:\n",size,type);
     for(int i = 0; i < size; i++){
-        printf("Month %d %s:",i + 1, type);
+        printf("Month %d %s:",i + 1,type);
         scanf("%d",&array[i]);
     }
 }
