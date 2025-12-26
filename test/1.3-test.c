@@ -1,28 +1,37 @@
 #include <stdio.h>
-    FILE *fptr ;
-    char *FILENAME = "output_data.txt";
-    char *text = "Hello, C File Handling is easy.";
-    int year = 2025 ;
-    
 
-int main(){
-    
-    fptr = fopen(FILENAME,"w");
-     if(fptr == NULL){
-         printf("ERROR : Could not open file %s ",FILENAME);
+int main() {
+    int num1, num2, num3, num4, num5;
+    int total_sum = 0;
+    FILE *fptr;
+    char *FILENAME = "input_data.csv";
+
+    // 1. เปิดไฟล์โหมด "r" (Read)
+    fptr = fopen(FILENAME, "r");
+
+    // ตรวจสอบความผิดพลาดในการเปิดไฟล์
+    if (fptr == NULL) {
+        printf("ERROR : Could not open file %s\n", FILENAME);
+        return 1; // จบโปรแกรมทันที
     }
-    printf("---FILE WRITING PROCESS---\n");
-    printf("Writing data to %s...\n",FILENAME);
-     
-    fprintf(fptr," %s\n",text);
 
+    // 2. อ่านข้อมูล 5 ค่าที่คั่นด้วย Comma
+    if (fscanf(fptr, "%d,%d,%d,%d,%d", &num1, &num2, &num3, &num4, &num5) == 5) {
+        total_sum = num1 + num2 + num3 + num4 + num5; // คำนวณผลรวม
+    }
 
-printf("File writing complete.\n");
-fclose(fptr);
-    
-    printf("\n---FILE PROCESSING REPORT---\n");
-    printf("Action : file creation and data writing\n");
-    printf("Filename : %s\n",FILENAME);
+    // 3. ปิดไฟล์
+    fclose(fptr);
+
+    // --- ส่วนการแสดงผลให้ตรงตาม Test Case เป๊ะๆ ---
+    printf("--- FILE READING PROCESS ---\n");
+    printf("Reading data from %s...\n", FILENAME);
+    printf("File reading complete.\n"); // เพิ่มบรรทัดนี้ตาม Test Case
+
+    printf("\n--- DATA ANALYSIS REPORT ---\n");
+    // ปรับเป็น "Data read:" (r ตัวเล็ก) และเพิ่มช่องว่างหลัง comma
+    printf("Data read: %d, %d, %d, %d, %d\n", num1, num2, num3, num4, num5);
+    printf("Total Sum: %d\n", total_sum);
 
     return 0;
 }
