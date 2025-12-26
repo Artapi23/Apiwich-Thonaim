@@ -1,19 +1,45 @@
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+  struct studentNode
+  {
+    char name[20];
+    int age;
+    char sex;
+    float gpa;
+    struct studentNode* next;
+  };
+  void saveNode(struct studentNode* child,char n[], int a, char s, float g);
+  void Gonext(struct studentNode* walk);
+ int main(){
+   struct studentNode *start, *now1, *now2;
+   start = (struct studentNode*)malloc(sizeof(struct studentNode));
+   saveNode(start,"Alice",20,'F',3.5);
 
-void go(int **p, int *z);
+   start->next = (struct studentNode*)malloc(sizeof(struct studentNode));
+   saveNode(start->next,"Bob",22,'M',3.7);
 
-int main() {
-    int *a, b = 10, c = 20;
-    go(&a,&b);
-    printf("%d %p %p\n", *a, a, &a);
-    printf("*******************\n");
-    go(&a, &c);
-    printf("%d %p %p\n", *a, a, &a);
+   start->next->next = (struct studentNode*)malloc(sizeof(struct studentNode));
+   saveNode(start->next->next,"Charlie",21,'M',3.8);    
 
+   start->next->next->next = (struct studentNode*)malloc(sizeof(struct studentNode));
+   saveNode(start->next->next->next,"Diana",23,'F',3.9);
+
+   now1 = start;
+   now2 = start->next;
+
+   Gonext(now1);
+   printf("Now - 1 %s\n",now1->name);
+    Gonext(now2);
+   printf("Now - 2 %s\n",now2->name);
     return 0;
+ }
+ void saveNode(struct studentNode* child,char n[], int a, char s, float g){
+   strcpy(child->name,n);
+   child->age = a;
+   child->sex = s;
+   child->gpa = g;
 }
-
-void go(int **p, int *z) {
-    *p = z;
-    printf("%d %p %p\n", **p, *p, p);
+void Gonext(struct studentNode* walk){
+  walk = walk->next;
 }
