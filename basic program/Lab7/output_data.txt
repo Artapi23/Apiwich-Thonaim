@@ -1,0 +1,2 @@
+Hello, C File Handling is easy.
+Year: 2025
