@@ -1,44 +1,70 @@
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
-  struct studentNode
-  {
-    char name[20];
-    int age;
-    char sex;
-    float gpa;
-    struct studentNode* next;
-  };
-  void saveNode(struct studentNode* child,char n[], int a, char s, float g);
-  void Gonext(struct studentNode** walk);
- int main(){
-   struct studentNode *start, *now1, **now2;
-   start = (struct studentNode*)malloc(sizeof(struct studentNode));
-   saveNode(start,"Alice",20,'F',3.5);
+#include <string.h>
+ struct studentNode{
+   char name[50];
+   int age;
+   char sex;
+   float gpa;
+ struct studentNode* next;
+ };
+typedef struct studentNode studentNode;
 
-   start->next = (struct studentNode*)malloc(sizeof(struct studentNode));
-   saveNode(start->next,"Bob",22,'M',3.7);
+studentNode* AddNode( studentNode **start, char name[], int age, char sex, float gpa);
+void InsertNode(studentNode **now, char name[], int age, char sex, float gpa);
+void Delete(studentNode **start);
+void ShowAll(studentNode *walk);
+int main() {
+  studentNode *start, *now;
+  start = NULL;
+ now = AddNode(&start, "one",6, 'M', 3.5);ShowAll(start);
+ now = AddNode(&start, "two",7, 'F', 3.6);ShowAll(start);
+ InsertNode(&now, "tree",5, 'M', 3.4);ShowAll(start);
+ InsertNode(&now, "four",5, 'M', 3.4);ShowAll(start);
+ Delete(&now);ShowAll(start);
 
-   start->next->next = (struct studentNode*)malloc(sizeof(struct studentNode));
-   saveNode(start->next->next,"Charlie",21,'M',3.8);    
-
-   start->next->next->next = (struct studentNode*)malloc(sizeof(struct studentNode));
-   saveNode(start->next->next->next,"Diana",23,'F',3.9);
-   
-   start->next->next->next->next = NULL;
-   now1 = start;
-   now2 = &start;
-
-   Gonext(now2);
-   printf("Now - 1 %s\n",(*now2)->name);
     return 0;
- }
- void saveNode(struct studentNode* child,char n[], int a, char s, float g){
-   strcpy(child->name,n);
-   child->age = a;
-   child->sex = s;
-   child->gpa = g;
 }
-void Gonext(struct studentNode** walk){
-  *walk = (*walk)->next;
+studentNode* AddNode( studentNode **start, char name[], int age, char sex, float gpa){
+  studentNode *newNode = (studentNode*)malloc(sizeof(studentNode));
+  strcpy(newNode->name, name);
+    newNode->age = age; 
+    newNode->sex = sex;
+    newNode->gpa = gpa; 
+    newNode->next = NULL;
+    if (*start == NULL) {
+        *start = newNode;
+    } else {
+        studentNode *temp = *start;
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+    return newNode;
+}
+void InsertNode(studentNode **now, char name[], int age, char sex, float gpa){
+  studentNode *newNode = (studentNode*)malloc(sizeof(studentNode));
+    strcpy(newNode->name, name);
+    newNode->age = age; 
+    newNode->sex = sex;
+    newNode->gpa = gpa; 
+    newNode->next = NULL;
+    newNode->next = (*now)->next;
+    (*now)->next = newNode;
+}
+void Delete(studentNode **start){
+     studentNode *temp = *start;
+    while (temp->next->next->next != NULL) {
+        temp = temp->next;
+    }
+    studentNode *nodeToDelete = temp->next;
+    temp->next = temp->next->next;
+}
+void ShowAll(studentNode *walk){
+  while(walk != NULL){
+    printf("%s ", walk->name);
+    walk = walk->next;
+  }
+  printf("\n");
 }
